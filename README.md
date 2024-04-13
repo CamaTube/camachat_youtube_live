@@ -53,7 +53,10 @@ Al termine si aprirà il browser predefinito alla pagina: localhost:5000
 ## Elenco utenti in chat con campo di ricerca
 ![Live in tempo reale](/images/camachat_utenti.png "")
 
-## Messaggi di utenti selezionati
+## Messaggi di un solo utente selezionato
+![Live in tempo reale](/images/camachat_utente.png "")
+
+## Messaggi di più utenti selezionati
 ![Live in tempo reale](/images/camachat_utentiselezionati.png "")
 
         
