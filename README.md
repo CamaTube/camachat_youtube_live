@@ -16,10 +16,12 @@ L'applicazione utilizza il framework Flask che grazie al WebServer Nijia consent
 
 '''python
 cursor.execute('INSERT INTO chat (idlive, idmessaggio, autore, messaggio, data, thumb) VALUES (?,?,?,?,?,?)', (idlive, idmessaggio, autore, messaggio, data_messaggio,thumb))
-'''
+
 
 Per qualsiasi esigenza è possibile aprire e consultare il database con il software: https://github.com/sqlitebrowser/sqlitebrowser
+
 > **Attenzione:** Se modifichi i campi delle tabelle o qualsiasi altro dato, l'applicazione potrebbe bloccarsi
+
 
 ## Come avviare l'applicazione
 - Avviare il file camachat_start.bat
