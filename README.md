@@ -12,9 +12,7 @@
 3. Filtraggio messaggi per uno o più utenti
 4. Ordinamento messaggi per data e ora crescente o decrescente
 5. Conteggio messaggi in chat
-
-**Funzioni che è possibile attivare e disattivare**
-6. Data e ora dei messaggi
+6. Data e ora dei messaggi (la puoi mostrare o nascondere)
 7. Video Youtube (lo puoi spostare, ridimensionare, mostrare o nascondere)
 8. Chat Youtube per chattare (la puoi mostrare o nascondere)
 
