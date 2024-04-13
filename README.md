@@ -14,8 +14,9 @@
 ## Come funziona
 L'applicazione utilizza il framework Flask che grazie al WebServer Nijia consente l'avvio in locale della pagina web index.html. Lo script camachat.py si occupa di intermediare le varie richieste, prelevando i dati da Youtube tramite API v1 con l'ausilio del modulo Python chat-downloader e registrando i dati sul DB SQlite presente nella cartella.
 
-```python
+'''python
 cursor.execute('INSERT INTO chat (idlive, idmessaggio, autore, messaggio, data, thumb) VALUES (?,?,?,?,?,?)', (idlive, idmessaggio, autore, messaggio, data_messaggio,thumb))
+'''
 
 Per qualsiasi esigenza è possibile aprire e consultare il database con il software: https://github.com/sqlitebrowser/sqlitebrowser
 > **Attenzione:** Se modifichi i campi delle tabelle o qualsiasi altro dato, l'applicazione potrebbe bloccarsi
