@@ -1,3 +1,4 @@
+#CamaChat for Youtube Live
 CamaChat è un'applicazione Python creata sia per chi dirige live (Youtubers) che per chi segue (Followers).
 Permette di monitorare e visualizzare la chat live di un video YouTube, sia in corso che registrata.
 I messaggi e gli utenti vengono scaricati in tempo reale e registrati in un database Sqlite locale.
