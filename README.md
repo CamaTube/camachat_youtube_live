@@ -17,7 +17,7 @@
 8. Chat Youtube per chattare
 
 ## Come funziona
-L'applicazione utilizza il framework Flask che grazie al WebServer Nijia consente l'avvio in locale della pagina web index.html. Lo script camachat.py si occupa di intermediare le varie richieste, prelevando i dati da Youtube tramite API v1 con l'ausilio del modulo Python chat-downloader e registrando i dati sul DB SQlite presente nella cartella, come nell'esempio seguente:
+L'applicazione utilizza il framework Flask che grazie al WebServer Nijia consente l'avvio in locale della pagina web index.html. Lo script camachat.py si occupa di intermediare le varie richieste, prelevando i dati da Youtube tramite API v1 con l'ausilio del modulo Python chat-downloader e registrando i dati sul DB SQlite presente nella cartella principale, come nell'esempio seguente:
 
 ```python
 cursor.execute('INSERT INTO chat (idlive, idmessaggio, autore, messaggio, data, thumb) VALUES (?,?,?,?,?,?)',
@@ -32,14 +32,14 @@ Per qualsiasi esigenza è possibile aprire e consultare il database con il softw
 
 ## Come avviare l'applicazione
 - Avviare il file camachat_start.bat
-Si aprirà il prompt e si installerà il necessario, solo nella cartella che avete scaricato. Non sarà installato altro nel vostro computer.
+Si aprirà il prompt e si avvierà subito l'applicazione. Non sarà installato nulla nel vostro computer, in quanto Python 3.12 Embed e le librerie necessarie sono incluse.
 ![Prompt CamaChat](/images/camachat_prompt.png "")
 
 Al termine si aprirà il browser predefinito alla pagina: localhost:5000
 ![Inserisci url video live Youtube](/images/camachat_url.png "")
 
 ## L'applicazione è stata testata con
-- Windows 10 e Windows 11
+- Windows 10 e Windows 11 (X64)
 - Python 3.12
 - Chrome, Firefox, Opera
 
