@@ -3,13 +3,13 @@
 
 Funzioni principali:
 1. Ingrandimento del testo della chat
-2. Elenco utenti in chat
+2. Elenco utenti chattaroli
 3. Filtraggio messaggi per uno o più utenti
-4. Data e ora visibile (opzionabile)
+4. Data e ora dei messaggi
 5. Ordinamento messaggi per data e ora crescente o decrescente
 6. Conteggio messaggi in chat
-7. Video (opzionabile)
-8. Chat Youtube per poter chattare (opzionabile)
+7. Video Youtube
+8. Chat Youtube per chattare
 
 Come funziona:
 L'applicazione utilizza il framework Flask che grazie al WebServer Nijia consente l'avvio in locale della pagina web index.html. Lo script camachat.py si occupa di intermediare le varie richieste, prelevando i dati da Youtube tramite API v1 con l'ausilio del modulo Python chat-downloader e registrando i dati sul DB SQlite presente nella cartella.
