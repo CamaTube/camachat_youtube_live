@@ -3,7 +3,7 @@
 
 > **Seguimi su Youtube:** Trovi queste e altre idee sul mio canale Youtube: https://www.youtube.com/@camatubeofficial
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/25634VCkR9g" frameborder="0" allowfullscreen></iframe>
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/25634VCkR9g/0.jpg)](https://www.youtube.com/watch?v=25634VCkR9g)
 
 
 ## Funzioni principali
