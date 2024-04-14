@@ -44,7 +44,7 @@ Se il video è disponibile e la chat è pubblica, apparirà la chat.
 
 ## Devi sapere che
 - Se la live è terminata, CamaChat scaricherà tutti i messaggi (ma proprio tutti). Dovrai attendere il tempo necessario affinchè possa scaricare tutta la chat.
-- Se la live è in tempo reale, CamaChat scaricherà gli ultimi 80 messaggi. Se la chat contenevà più di 80 messaggi, una volta terminata la live, potrai ricollegarti alla live registrata per recuperare i primi messaggi.
+- Se la live è in tempo reale e ti sei collegato in ritardo, CamaChat potrebbe non scaricare tutti i messaggi. Tuttavia, una volta terminata la live, potrai ricollegarti alla live registrata per recuperare i primi messaggi.
 - Se perdi la connessione durante la live e sei obbligato ad aggiornare la pagina web di CamaChat o a riavviare il tuo PC, una volta ristabilità la connessione con la live, potrai recuperare i messaggi che avevi già scaricato nel database locale.
 
 ## Esempio di live terminata ma disponibile al pubblico (la chat di Youtube è disattivata)
