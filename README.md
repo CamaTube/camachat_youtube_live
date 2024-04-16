@@ -1,7 +1,7 @@
 # CamaChat for Youtube Live
 ### *CamaChat è un'applicazione Python creata per chi dirige o segue live su Youtube. Uno strumento per Youtubers e per i loro followers che permette di visualizzare la chat live di un video YouTube, filtrando i messaggi per utente e altre utilità. Non richiede credenziali Youtube, perché legge solo dati pubblici. Può essere utilizzata sia per le live in tempo reale che per quelle registrate.*
 
-> **Seguimi su Youtube:** Trovi queste e altre idee sul mio canale Youtube: https://www.youtube.com/@camatubeofficial
+> **Seguimi su Youtube:** Trovi queste e altre idee sul mio canale: https://www.youtube.com/@camatubeofficial
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/25634VCkR9g/0.jpg)](https://www.youtube.com/watch?v=25634VCkR9g)
 
