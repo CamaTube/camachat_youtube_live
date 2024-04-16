@@ -18,15 +18,21 @@
 9. Le immagini degli utenti sono cliccabili: puoi visionare il loro canale.
 
 ## Come funziona
-L'applicazione utilizza il framework Flask, il quale, grazie al WebServer Ninja, consente l'avvio in locale della pagina web index.html. Lo script camachat.py si occupa di intermediare le varie richieste, prelevando i dati da YouTube tramite l'API v1 con l'ausilio del modulo Python chat-downloader e registrando i dati nel database SQLite presente nella cartella principale, come nell'esempio seguente:
+L'applicazione utilizza il framework Flask, il quale, grazie al WebServer Ninja, consente l'avvio in locale della pagina web index.html. Lo script camachat.py si occupa di intermediare le varie richieste, prelevando i dati da YouTube tramite l'API v1 con l'ausilio del modulo Python chat-downloader e registrandoli nel database SQLite presente nella cartella principale, come nell'esempio seguente:
 
 ```python
-cursor.execute('INSERT INTO chat (idlive, idmessaggio, autore, messaggio, data, thumb) VALUES (?,?,?,?,?,?)',
-(idlive, idmessaggio, autore, messaggio, data_messaggio,thumb))
+cursor.execute('INSERT INTO chat (idlive, idmessaggio, idchannel, autore, messaggio, data, thumb, tipo, importo, header_primary_text, header_secondary_text) VALUES (?,?,?,?,?,?,?,?,?,?,?)', (idlive, idmessaggio, idchannel, autore, messaggio, data_messaggio, thumb, tipo, importo, header_primary_text, header_secondary_text))
 ```
 
+Anche i dati pubblici degli utenti in chat vengono salvati per altre opzioni attualmente in fase di sviluppo. 
+
+```python
+cursor.execute('INSERT INTO utenti (idchannel, utente, livello, stato, preferito, thumb) VALUES (?,?,?,?,?,?)', (idchannel, autore, 1, 1, 0, thumb))
+```
 
 Per qualsiasi esigenza è possibile aprire e consultare il database locale con il software: https://github.com/sqlitebrowser/sqlitebrowser
+
+![Inserisci url video live Youtube](/images/camachat_sqlite.png "")
 
 > **Attenzione:** Se modifichi i campi delle tabelle o qualsiasi altro dato, l'applicazione potrebbe bloccarsi
 
