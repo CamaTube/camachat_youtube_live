@@ -16,6 +16,7 @@
 7. Video Youtube (lo puoi spostare, ridimensionare, mostrare o nascondere).
 8. Chat Youtube per chattare (la puoi mostrare o nascondere).
 9. Le immagini degli utenti sono cliccabili: puoi visionare il loro canale.
+10. Puoi seguire più live senza uscire da quella corrente.
 
 ## Come funziona
 L'applicazione utilizza il framework Flask, il quale, grazie al WebServer Ninja, consente l'avvio in locale della pagina web index.html. Lo script camachat.py si occupa di intermediare le varie richieste, prelevando i dati da YouTube tramite l'API v1 con l'ausilio del modulo Python chat-downloader e registrandoli nel database SQLite presente nella cartella principale, come nell'esempio seguente:
@@ -54,7 +55,8 @@ Se il video è disponibile e la chat è pubblica, dopo qualche secondo appariran
 - Se la live è in tempo reale e ti sei collegato in ritardo, CamaChat potrebbe non scaricare i primi messaggi. Tuttavia, una volta terminata la live, potrai ricollegarti alla live registrata per recuperare quelli persi.
 - Se perdi la connessione durante la live o sei obbligato ad aggiornare la pagina web di CamaChat o devi riavviare il tuo PC, una volta ristabilità la connessione con la live, potrai recuperare tutti i messaggi che avevi già scaricato nel database locale.
 - Se chiudi il prompt, la pagina web non aggiornerà i messaggi. Se lanci nuovamente camachat_start.bat, si aprirà una nuova pagina nel browser. Puoi chiuderla per tornare a quella precedente e attendere la sincronizzazione degli ultimi messaggi.
-- Se chiudi la pagina web
+- Se chiudi la pagina web per errore, ti basterà aprire una nuova scheda nel browser, digitare "localhost:5000" e incollare l'url del video live per riprendere la chat.
+- Se vuoi seguire un'altra live su un altro canale Youtube, apri una nuova scheda nel browser, digita "localhost:5000" e incolla l'url del video live.
 
 ## Esempio di live terminata ma disponibile al pubblico (la chat di Youtube è disattivata)
 ![Live registrata](/images/camachat_liverec.png "")
