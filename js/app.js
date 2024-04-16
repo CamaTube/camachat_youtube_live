@@ -97,8 +97,7 @@ app.controller('MainController', function($scope, $http, $interval, $filter) {
       method: 'GET',
       url: '/aggiorna_messaggi',
       params: { idlive: idlive }
-    }).then(function(response) {      
-      //console.log(response);        
+    }).then(function(response) {            
         if (response) {
             $('#loader').hide();
             $('#menu').show(); 
@@ -293,7 +292,6 @@ app.controller('MainController', function($scope, $http, $interval, $filter) {
   $scope.toggleYTChat = function() {
     $scope.isYTChatVisible = !$scope.isYTChatVisible;
     if ($scope.isYTChatVisible==true){
-      console.log('visibile');
       var div = document.getElementById('ytchat');
       var iframe = div.getElementsByTagName('iframe')[0]; // Otteniamo il primo iframe all'interno del div
       if (iframe) {
