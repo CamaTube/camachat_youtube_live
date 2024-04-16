@@ -1,8 +1,26 @@
+<!-- Creata da Luigi Cama[Tube] -->
+<!-- 13 Aprile 2024 -->
+<!-- Seguimi su https://www.youtube.com/@camatubeofficial -->
+
 <!DOCTYPE html>
 <html lang="en" ng-app="CamApp">
 <head>
     <meta charset="UTF-8">
-    <title>[CAMAchat] La chat perfetta per i video live YouTube.</title>
+    <title>[CAMAchat] La chat (quasi) perfetta per i video live YouTube</title>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/serviceworker.js')
+                    .then(registration => {
+                        console.log('Service Worker registrato con successo:', registration);
+                    })
+                    .catch(error => {
+                        console.error('Errore durante la registrazione del Service Worker:', error);
+                    });
+            });
+        }
+    </script>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
    
@@ -19,30 +37,21 @@
     <style>
         
         body {
-            background-color: black; /* Sfondo nero */
-            color: greenyellow; /* Testo bianco */
+            background-color: black; 
+            color: greenyellow; 
             overflow-x: hidden;
         }
 
         span {color: white}
 
         ::placeholder {
-            font-size: 12px; /* Dimensione del testo del placeholder più piccola */
+            font-size: 12px; 
         }
 
         .modal-content {
-            color: black; /* Imposta il colore del testo su nero */
-            /* border: none ; /* Rimuovi i bordi */
+            color: black; 
         }
         
-        .modal-header {
-            /* border-bottom: none; /* Rimuovi il bordo inferiore dall'header */
-        }
-
-        .modal-footer {
-            /* border-top: none; /* Rimuovi il bordo superiore dal footer */
-        }
-
         .message {
             margin-bottom: 5px;
         }
@@ -50,18 +59,17 @@
         .fixed-bottom-box {
             position: fixed;
             bottom: 0px;
-            right: 10px; /* Posizionamento in basso a destra */
-            width: 200px; /* Larghezza del 50% */
-            height: 30px; /* Altezza di 30px */
-            background-color: #000000; /* Sfondo grigio scuro */
-            color: rgb(80, 80, 80); /* Testo nero */
-            border-top-left-radius: 10px; /* Bordo superiore sinistro arrotondato */
-            border-top-right-radius: 10px; /* Bordo superiore destro arrotondato */
-            font-size: 12px; /* Font più piccolo */
-            display: flex; /* Abilita il layout flex */
-            justify-content: center; /* Centra orizzontalmente */
-            align-items: center; /* Centra verticalmente */
-            /*transform: rotate(270deg);*/
+            right: 10px; 
+            width: 200px; 
+            height: 30px; 
+            background-color: #000000; 
+            color: rgb(80, 80, 80); 
+            border-top-left-radius: 10px; 
+            border-top-right-radius: 10px; 
+            font-size: 12px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
         }
 
         #menu {
@@ -118,7 +126,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
         }
-
+        
     </style>
     
 </head>
@@ -131,19 +139,23 @@
         <span>La chat (quasi) perfetta per youtubers e followers</span><br>
         <span>che amano fare o seguire le live su Youtube.</span>
         <div style="margin-top: 20px">
-            <div class="mb-3" >
+            <div class="mb-3">
                 <input type="text" class="form-control" ng-model="idlive" placeholder="Incolla URL del video live">
             </div>            
             <button type="button" class="btn btn-primary" ng-click="verifica_chat(idlive)">Avvia la connessione</button>
         </div>
         <br><br>
-        <p>Creata da Luigi Cama[Tube]<br>
-        <span>Versione 1.0</span>
-    </p>
+        <div style="position: fixed; bottom: 5px; right: 84px;">
+            <p style="text-align: right;">Creata da Luigi Cama[Tube]<br>
+                <span>Versione 1.0</span>
+            </p>
+        </div>
+        <img src="static/images/favicon.ico" style="width: 64px; height: 64px; position: fixed; bottom: 10px; right: 10px;">
     </div>
+    
 
     <!-- Loader -->
-    <div id="loader" class="center-box" style="background: none" >
+    <div id="loader" class="center-box" style="background: none; zoom: 150%" >
         <div class="spinner-border text-primary mt-3" role="status"></div>
         <div>Salve professor Falken<br>Connessione in corso...</div>
     </div>
@@ -211,7 +223,7 @@
         <div ng-repeat="message in chatlivefiltered | orderBy:orderType" class="message">
             <div class="d-flex align-items-start" ng-style="{'background-color': message.tipo !== 'text_message' ? '#4c85db' : '', 'padding': message.tipo !== 'text_message' ? '10px' : '0px', 'border-radius': '5px'}">      
                 <!-- Immagine dell'autore -->
-                <img ng-click="openNewWindow(message.idchannel)" ng-src="{a message.thumb a}" class="rounded-circle mr-3" width="50" height="50" style="flex-shrink: 0;border: solid 2px #224f92">
+                <img ng-click="openNewWindow(message.idchannel)" ng-src="{a message.thumb a}" class="rounded-circle mr-3" width="50" height="50" style="flex-shrink: 0;border: solid 2px #224f92; cursor: pointer;" preload>
                 <div style="margin-left: 10px;"> 
                     <!-- Nome dell'autore -->
                     <span style="color: rgb(255, 217, 113);"><b>{a message.autore a}</b></span><span><b> {a message.importo a}</b></span>
@@ -233,39 +245,12 @@
                 <div class="modal-header">
                     <h4 class="modal-title">Utenti in chat [ {a users.length a} ]</h4>
                 </div>
-                <!-- Se preferisci chiudere con il pulsante, togli questo commento
-                <button type="button" class="btn btn-primary" style="position: absolute; top: 10; right: 0px;" data-dismiss="modal" aria-label="Close" ng-click="closeModalUser()">
-                    <span aria-hidden="true">Chiudi</span>
-                </button>
-                -->
             <div class="modal-body">
                 <input type="text" class="form-control" ng-model="searchQuery" placeholder="Cerca Utente...">
                 <hr>
                 <div class="list-group">
                 <label class="list-group-item" ng-repeat="user in filteredUsers = (users | filter:searchQuery)">
                     <input type="checkbox" ng-model="user.selected" ng-change="toggleUserSelection()"> {a user.name a}
-                </label>
-                </div>
-            </div>
-            </div>
-        </div>
-        </div>
-    </div>
-
-    <!-- Modal Preferiti -->
-    <div id="main">
-        <div class="modal fade" id="preferitiModal" tabindex="-1" role="dialog" aria-labelledby="preferitiModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Preferiti in chat [ {a preferiti.length a} ]</h4>
-                </div>
-            <div class="modal-body">
-                <input type="text" class="form-control" ng-model="searchQueryPreferiti" placeholder="Cerca Utente...">
-                <hr>
-                <div class="list-group">
-                <label class="list-group-item" ng-repeat="user in filteredUsers = (users | filter:searchQueryPreferiti)">
-                    <input type="checkbox" ng-model="preferiti.selected" ng-change="togglePreferitiSelection()"> {a preferiti.name a}
                 </label>
                 </div>
             </div>
@@ -291,13 +276,7 @@
             </div>
         </div>
     </div>
-   
-    <!-- Autore 
-    <div class="fixed-bottom-box">
-        Creata da Luigi Cama[Tube]
-    </div>
-    -->
-    
+      
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
 </body>
