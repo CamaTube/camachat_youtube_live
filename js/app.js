@@ -1,3 +1,9 @@
+/*  
+    Creata da Luigi Cama[Tube] 
+    13 Aprile 2024
+    Seguimi su https://www.youtube.com/@camatubeofficial
+*/
+
 var app = angular.module('CamApp', ['ui.bootstrap']);
 
 // Soluzione al conflitto tra Flask/Jinja e AngularJS riguardo le doppie graffe
