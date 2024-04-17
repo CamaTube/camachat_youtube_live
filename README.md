@@ -79,6 +79,8 @@ Se il video è disponibile e la chat è pubblica, dopo qualche secondo appariran
 - Chrome, Firefox, Opera
 - Risoluzione schermo 1920x1080
 
+Thanks to https://github.com/xenova/chat-downloader 
+
 ## Prossimi aggiornamenti
 È stato divertente realizzare questa prima versione di CamaChat e ho altre idee su come potenziarla. Spero presto di poterle condividere sul mio canale YouTube. Ti invito a seguirmi per essere avvisato sulle novità. Se anche tu vuoi contribuire a migliorarla, scrivimi a info@camatube.com o modifica il codice a tuo piacimento e mostrami il risultato. :)
         
