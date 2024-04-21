@@ -16,7 +16,7 @@
 7. Video Youtube (lo puoi spostare, ridimensionare, mostrare o nascondere).
 8. Chat Youtube per chattare (la puoi mostrare o nascondere).
 9. Le immagini degli utenti sono cliccabili: puoi visionare il loro canale.
-10. Puoi seguire più live senza uscire da quella corrente.
+10. Puoi seguire più live e scrivere in più chat.
 
 ## Come funziona
 L'applicazione utilizza il framework Flask, il quale, grazie al WebServer Ninja, consente l'avvio in locale della pagina web index.html. Lo script camachat.py si occupa di intermediare le varie richieste, prelevando i dati da YouTube tramite l'API v1 con l'ausilio del modulo Python chat-downloader e registrandoli nel database SQLite presente nella cartella principale, come nell'esempio seguente:
