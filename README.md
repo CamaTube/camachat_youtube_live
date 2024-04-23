@@ -56,7 +56,7 @@ Se il video è disponibile e la chat è pubblica, dopo qualche secondo appariran
 - Se perdi la connessione durante la live o sei obbligato ad aggiornare la pagina web di CamaChat o devi riavviare il tuo PC, una volta ristabilità la connessione con la live, potrai recuperare tutti i messaggi che avevi già scaricato nel database locale.
 - Se chiudi il prompt, la pagina web non aggiornerà i messaggi. Se lanci nuovamente camachat_start.bat, si aprirà una nuova pagina nel browser. Puoi chiuderla per tornare a quella precedente e attendere la sincronizzazione degli ultimi messaggi.
 - Se chiudi la pagina web per errore, ti basterà aprire una nuova scheda nel browser, digitare "localhost:5000" e incollare l'url del video live per riprendere la chat.
-- Se vuoi seguire un'altra live su un altro canale Youtube, apri una nuova scheda nel browser, digita "localhost:5000" e incolla l'url del video live.
+- Puoi seguire un'altra live su un altro canale Youtube cliccando sul pulsante "Nuova live". Si aprirà una seconda scheda nel browser. Oppure segui la stessa live per visualizzare i messaggi con filtri diversi. Ad esempio, nella prima scheda puoi vedere tutti i messaggi e nella seconda solo i messaggi di utenti speciali, come i moderatori, ad esempio.
 
 ## Esempio di live terminata ma disponibile al pubblico (la chat di Youtube è disattivata)
 ![Live registrata](/images/camachat_liverec.png "")
