@@ -15,8 +15,6 @@ import os
 timestampattuale = int(datetime.datetime.now().timestamp())
 
 app = Flask(__name__)
-# app = Flask(__name__, static_folder='.', static_url_path='') # per rendere visibili tutti i file nella root, ma vede anche il codice python, non lo processa
-
 CORS(app)
 
 pattern = re.compile(r'(?:https?://)?(?:www\.)?(?:youtube\.com/watch\?v=|youtu\.be/)([a-zA-Z0-9_-]{11})')
