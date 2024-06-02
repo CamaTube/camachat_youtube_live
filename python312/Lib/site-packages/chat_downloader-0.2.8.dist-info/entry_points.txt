@@ -1,0 +1,2 @@
+[console_scripts]
+chat_downloader = chat_downloader.cli:main

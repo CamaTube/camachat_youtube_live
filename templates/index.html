@@ -1,137 +1,35 @@
 <!-- Creata da Luigi Cama[Tube] -->
-<!-- 13 Aprile 2024 -->
 <!-- Seguimi su https://www.youtube.com/@camatubeofficial -->
 
 <!DOCTYPE html>
 <html lang="en" ng-app="CamApp">
 <head>
     <meta charset="UTF-8">
+
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
     <title>[CAMAchat] La chat (quasi) perfetta per i video live YouTube</title>
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/serviceworker.js')
-                    .then(registration => {
-                        console.log('Service Worker registrato con successo:', registration);
-                    })
-                    .catch(error => {
-                        console.error('Errore durante la registrazione del Service Worker:', error);
-                    });
-            });
-        }
-    </script>
+    
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
-   
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.6/ui-bootstrap-tpls.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="/js/angular.min.js"></script>
+    <script src="/js/angular-animate.min.js"></script>
+       
+    <script src="/js/ui-bootstrap-tpls.min.js"></script>
+    <script src="/js/jquery-3.5.1.slim.min.js"></script>
     <script src="/js/app.js"></script>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <script src="https://www.youtube.com/iframe_api"></script>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/all.min.css">
+    <link rel="stylesheet" href="/css/camastyle.css">
+    <script src="/js/iframe_api.js"></script>
 
 </head>
-
-    <style>
-        
-        body {
-            background-color: black; 
-            color: greenyellow; 
-            overflow-x: hidden;
-        }
-
-        span {color: white}
-
-        ::placeholder {
-            font-size: 12px; 
-        }
-
-        .modal-content {
-            color: black; 
-        }
-        
-        .message {
-            margin-bottom: 5px;
-        }
-
-        .fixed-bottom-box {
-            position: fixed;
-            bottom: 0px;
-            right: 10px; 
-            width: 200px; 
-            height: 30px; 
-            background-color: #000000; 
-            color: rgb(80, 80, 80); 
-            border-top-left-radius: 10px; 
-            border-top-right-radius: 10px; 
-            font-size: 12px; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-        }
-
-        #menu {
-            position: fixed;
-            bottom: 5px;
-            width: 100%;
-        }
-
-        #menu .btn{
-            width: 100%;
-        }
-
-        #menu .dropdown-item {
-            width: 100%;
-        }
-
-        #menu .dropdown-menu {
-            width: 100%;
-        }
-
-        #menu .col{
-            padding: 10px;
-        }
-
-        .center-box {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            width: 600px;
-            transform: translate(-50%, -50%);
-            background-color: #303030;
-            padding: 50px;
-            border-radius: 10px; 
-        }
-
-        #ytvideo {
-            position: fixed;
-            border-radius: 10px;
-            z-index: 1000;
-        }
-
-        #ytchat {
-            position: fixed;
-            top: 0px;
-            right: 0px;
-            height: 80vh;
-            width: 400px;
-            z-index: 999;
-        }
-
-        #zoom-controls-v {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        
-    </style>
     
 </head>
 <body ng-controller="MainController">
-
     <!-- Benvenuto e inserimento idlive - centro della pagina -->
     <div class="center-box" id="avvio">
         <!-- Contenuto del box -->
@@ -139,10 +37,13 @@
         <span>La chat (quasi) perfetta per youtubers e followers</span><br>
         <span>che amano fare o seguire le live su Youtube.</span>
         <div style="margin-top: 20px">
-            <div class="mb-3">
+            <div class="mb-3" ng-show="inputURL">
                 <input type="text" class="form-control" ng-model="idlive" placeholder="Incolla URL del video live">
             </div>            
-            <button type="button" class="btn btn-primary" ng-click="verifica_chat(idlive)">Avvia la connessione</button>
+            <button type="button" class="btn btn-primary" ng-show="inputURL" ng-click="verifica_chat(idlive)">Avvia la connessione</button>
+            <button type="button" class="btn btn-primary" ng-show="!inputURL" ng-click="inputURL=true">Incolla URL live</button>
+            <button type="button" class="btn btn-primary" ng-click="openModal('elencoliveModal','')">Live scaricate</button>
+            <button type="button" class="btn btn-primary" ng-click="openModal('canaliModal','')">Canali</button>
         </div>
         <br><br>
         <div style="position: fixed; bottom: 5px; right: 84px;">
@@ -155,12 +56,12 @@
     
 
     <!-- Loader -->
-    <div id="loader" class="center-box" style="background: none; zoom: 150%" >
+    <div id="loader" class="center-box" style="background: none; zoom: 150%; text-align:center" >
         <div class="spinner-border text-primary mt-3" role="status"></div>
-        <div>Salve professor Falken<br>Connessione in corso...</div>
+        <div>{a msg_loader a}<br>{a msg_loader_sub a}</div>
     </div>
 
-    <!-- Contenitore per il video -->
+    <!-- Video Youtube -->
     <div id="ytvideo" ng-mouseenter="showControls('v')" ng-mouseleave="hideControls('v')" ng-show="isVideoVisible" ng-style="divStyle" ng-mousedown="startDrag($event)" ng-mouseup="endDrag($event)">
         <div id="player"></div>
         <div id="zoom-controls-v">
@@ -170,6 +71,7 @@
         </div>
     </div>
 
+    <!-- Chat Live Youtube -->
     <div id="ytchat" ng-show="isYTChatVisible">
         <iframe src="" frameborder="0" scrolling="no" width="100%" height="100%" referrerpolicy="strict-origin-when-cross-origin"></iframe>     
     </div>
@@ -178,10 +80,10 @@
     <div id="menu">
         <div class="row">
             <div class="col">
-                <button class="btn btn-primary" ng-click="openModalUser()" >{a chatlivefiltered.length a} Messaggi</button>         
+                <button class="btn btn-primary" ng-click="openModal('userModal','')" >{a chatlivefiltered.length a} Messaggi</button>         
             </div>
             <div class="col">
-                <button class="btn btn-primary" ng-click="openModalUser()">{a users.length a} Chattaroli</button>            
+                <button class="btn btn-primary" ng-click="openModal('userModal','')">{a users.length a} Chattaroli</button>            
             </div>
             <div class="col">
                 <button class="btn btn-secondary" ng-click="zoomOut('zoom_chat')">Zoom -</button>               
@@ -210,52 +112,107 @@
                     <span ng-bind="isVideoVisible ? 'Nascondi Video' : 'Mostra Video'"></span>
                 </button>                              
             </div>
-            <div class="col">
+            <div class="col" ng-show="mostraytchat">
                 <button class="btn" ng-class="{'btn-warning': isYTChatVisible, 'btn-secondary': !isYTChatVisible}" ng-click="toggleYTChat()">
                     <span ng-bind="isYTChatVisible ? 'Nascondi YTChat' : 'Mostra YTChat'"></span>
                 </button>                              
             </div>
-        </div>
+            <div class="col">
+                <button class="btn btn-info" ng-click="refresh()">Cambia Live</button>                
+            </div>
+            <div class="col">
+                <button class="btn btn-info" ng-click="openNewWindow('http://localhost:5000')">Nuova Live</button>                
+            </div>
+        </div>        
     </div>
-
+    
     <!-- Messaggi -->
     <div id="messaggi" style="margin-bottom: 50px;  margin-top: 10px; margin-left: 30px; width: 50% ; zoom: {a zoom_chat a}%;">
         <div ng-repeat="message in chatlivefiltered | orderBy:orderType" class="message">
             <div class="d-flex align-items-start" ng-style="{'background-color': message.tipo !== 'text_message' ? '#4c85db' : '', 'padding': message.tipo !== 'text_message' ? '10px' : '0px', 'border-radius': '5px'}">      
-                <!-- Immagine dell'autore -->
-                <img ng-click="openNewWindow(message.idchannel)" ng-src="{a message.thumb a}" class="rounded-circle mr-3" width="50" height="50" style="flex-shrink: 0;border: solid 2px #224f92; cursor: pointer;" preload>
+                <img ng-click="openNewWindow('https://www.youtube.com/channel/'+message.idchannel)" ng-src="{a message.thumb a}" class="rounded-circle mr-3" width="50" height="50" style="flex-shrink: 0;border: solid 2px #fff; cursor: pointer;">
                 <div style="margin-left: 10px;"> 
-                    <!-- Nome dell'autore -->
-                    <span style="color: rgb(255, 217, 113);"><b>{a message.autore a}</b></span><span><b> {a message.importo a}</b></span>
-                    <span ng-show="isDateVisible && message.data" style="font-size: 12px; color: #224f92"><b> {a message.data | date:'dd/MM/yyyy HH:mm:ss' a}</b></span><br>
-                    <!-- Messaggio -->
-                    <span style="color: rgb(255, 255, 255);">{a message.messaggio a}</span><br ng-if="message.messaggio !== '' && message.header_primary_text !== ''">
-                    <span style="color: rgb(0, 255, 255);">{a message.header_primary_text a}</span><br ng-if="header_secondary_text !== ''">
-                    <span style="color: rgb(0, 255, 255);"><b>{a message.header_secondary_text a}</b></span>
+                    <span ng-show="isDateVisible && message.data" style="font-size: 12px; color: #a1b5d3"><b> {a message.data | date:'dd/MM/yyyy HH:mm:ss' a}</b><br></span>
+                    <span ng-if="message.tipo === 'text_message'" style="color: rgb(255, 217, 113);"><b>{a message.autore a}</b></span>
+                    <span ng-if="message.tipo !== 'text_message'" style="color: rgb(255, 217, 113); font-size: 24px;"><b>{a message.autore a}</b></span>
+                    <span ng-if="message.tipo !== 'text_message'" style="color: rgb(255, 179, 113); font-size: 24px;"><b> {a message.importo a}</b></span>  
+                    <br ng-if="message.message !=='' || message.header_primary_text !=='' || message.header_secondary_text !==''">                
+                    <span ng-if="message.message !==''" style="color: rgb(255, 255, 255);">{a message.messaggio a}</span>
+                    <span ng-if="message.header_primary_text !==''" style="color: rgb(0, 255, 255);">{a message.header_primary_text a}</span>
+                    <span ng-if="message.header_secondary_text !==''" style="color: rgb(0, 255, 255);"><b>{a message.header_secondary_text a}</b></span>
                 </div>
             </div>
-        </div>
+        </div>   
     </div>
+    
 
     <!-- Modal Utenti -->
-    <div id="main">
-        <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel" aria-hidden="true">
+    <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Utenti in chat [ {a users.length a} ]</h4>
                 </div>
+                <div class="modal-body">
+                    <input type="text" class="form-control" ng-model="searchQuery" placeholder="Cerca Utente...">
+                    <hr>
+                    <div class="list-group">
+                        <label class="list-group-item" ng-repeat="user in filteredUsers = (users | filter:searchQuery)">
+                            <input type="checkbox" ng-model="user.selected" ng-change="toggleUserSelection()"> {a user.name a}
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Live  -->
+    <div class="modal fade" id="elencoliveModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header d-block">
+                    <h4 ng-if="elencolive.length>0" class="modal-title">{a titolo_modal_elencolive a} <span style="color: #cc0000">[ {a elencolive.length a} ]</span></h4>
+                    <h5 style="color: #cc0000">{a avviso a}</h5>
+                </div>
             <div class="modal-body">
-                <input type="text" class="form-control" ng-model="searchQuery" placeholder="Cerca Utente...">
-                <hr>
+                <input type="text" class="form-control mb-3" ng-model="searchQuery" placeholder="Cerca Live...">
                 <div class="list-group">
-                <label class="list-group-item" ng-repeat="user in filteredUsers = (users | filter:searchQuery)">
-                    <input type="checkbox" ng-model="user.selected" ng-change="toggleUserSelection()"> {a user.name a}
-                </label>
+                    
+                    <a ng-if="item.canale === '' || item.canale === null" ng-click="verifica_chat('https://www.youtube.com/watch?v=' + item.idlive);closeModal('elencoliveModal')" style="text-align: left !important;border: none !important;" href="" class="list-group-item btn mb-3" ng-repeat="item in elencolive | filter:searchQuery">
+                        <img style="border-radius: 3% !important;" src="https://img.youtube.com/vi/{a item.idlive a}/hqdefault.jpg" width="100%">
+                        <h4>{a item.canale a}</h4>
+                        {a item.titolo a}
+                    </a>
+
+                    <a ng-if="item.canale" ng-click="openlive(item.idlive);closeModal('elencoliveModal')" style="text-align: left !important;border: none !important;" href="" class="list-group-item btn mb-3" ng-repeat="item in elencolive | filter:searchQuery" ng-if="item.canale === ''" ng-click="verifica_chat('https://www.youtube.com/watch?v=' + item.idlive);closeModal('elencoliveModal')" ng-if="item.canale" ng-click="openlive(item.idlive);closeModal('elencoliveModal')">
+                        <img style="border-radius: 3% !important;" src="https://img.youtube.com/vi/{a item.idlive a}/hqdefault.jpg" width="100%">
+                        <h4>{a item.canale a}</h4>
+                        {a item.titolo a}
+                    </a>
                 </div>
             </div>
             </div>
         </div>
+    </div>
+
+    <!-- Modal canali -->
+    <div class="modal fade" id="canaliModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header d-block">
+                    <h4 ng-if="canali.length>0" class="modal-title">Canali YouTube visitati <span style="color: #cc0000">[ {a canali.length a} ]</span></h4>
+                    <h5 style="color: #cc0000">{a avviso a}</h5>
+                </div>
+
+                <div style="cursor: pointer;margin: 10px" class="d-flex align-items-start" ng-repeat="item in canali | filter:searchQuery" ng-click="openModal('elencoliveModal',item.idchannel,item.titolo);closeModal('canaliModal')">      
+                    <img ng-src="https://img.youtube.com/vi/{a item.idlive a}/default.jpg" class="rounded-circle mr-3" width="64" height="64" style="flex-shrink: 0;">
+                    <div style="margin-left: 10px;">        
+                        <h4>{a item.titolo a}</h4>
+                        <p>Altre live di questo canale</p>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 
@@ -275,9 +232,9 @@
             </div>
             </div>
         </div>
-    </div>
+    </div>   
       
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

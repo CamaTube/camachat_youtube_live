@@ -1,0 +1,6 @@
+.\python312
+.\Scripts
+.
+
+# Uncomment to run site.main() automatically
+import site

@@ -1,0 +1,101 @@
+body {
+    background-color: black; 
+    color: greenyellow; 
+    overflow-x: hidden;
+}
+
+span {color: white}
+
+::placeholder {
+    font-size: 12px; 
+}
+
+.modal-content {
+    color: black; 
+}
+
+.message {
+    margin-bottom: 5px;
+    transition: opacity 0.8s;
+}
+
+.message.ng-enter {
+    opacity: 0;
+}
+
+.message.ng-enter-active {
+    opacity: 1;
+}
+
+.fixed-bottom-box {
+    position: fixed;
+    bottom: 0px;
+    right: 10px; 
+    width: 200px; 
+    height: 30px; 
+    background-color: #000000; 
+    color: rgb(80, 80, 80); 
+    border-top-left-radius: 10px; 
+    border-top-right-radius: 10px; 
+    font-size: 12px; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+}
+
+#menu {
+    position: fixed;
+    z-index: 9998;
+    bottom: 5px;
+    width: 100%;
+}
+
+#menu .btn{
+    width: 100%;
+}
+
+#menu .dropdown-item {
+    width: 100%;
+}
+
+#menu .dropdown-menu {
+    width: 100%;
+}
+
+#menu .col{
+    padding: 10px;
+}
+
+.center-box {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 600px;
+    transform: translate(-50%, -50%);
+    background-color: #303030;
+    padding: 50px;
+    border-radius: 10px; 
+}
+
+#ytvideo {
+    position: fixed;
+    border-radius: 10px;
+    z-index: 1000;
+}
+
+#ytchat {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    height: 80vh;
+    width: 400px;
+    z-index: 999;
+}
+
+#zoom-controls-v {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+

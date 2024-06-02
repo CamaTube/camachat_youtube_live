@@ -1,10 +1,9 @@
 /*  
     Creata da Luigi Cama[Tube] 
-    13 Aprile 2024
     Seguimi su https://www.youtube.com/@camatubeofficial
 */
 
-var app = angular.module('CamApp', ['ui.bootstrap']);
+var app = angular.module('CamApp', ['ui.bootstrap','ngAnimate']);
 
 // Soluzione al conflitto tra Flask/Jinja e AngularJS riguardo le doppie graffe
 app.config(['$interpolateProvider', function($interpolateProvider) {
@@ -31,96 +30,133 @@ app.controller('MainController', function($scope, $http, $interval, $filter) {
 
   $scope.chatlive = [];
   $scope.chatlivefiltered = [];
-  idlive_ripulito = '';
+  $scope.last_id = 0;
+  $scope.msg_loader = '';
+  $scope.msg_loader_sub = '';
+  idvideo = '';
+  $scope.inputURL = false;
+  $scope.titolo_modal_elencolive = '';
 
   $scope.verifica_chat = function(idlive) {
+
+    $('#avvio').hide();
     
-      $http({
-          method: 'GET',
-          url: '/verifica_chat',
-          params: { idlive: idlive }
-        }).then(function(response) {
+    $http({
+        method: 'GET',
+        url: '/verifica_chat',
+        params: { idlive: idlive }
+      }).then(function(response) {
 
-          if (response.data.response!=0 && response.data.response!=1 && response.data.response!=2){
-            $scope.avvia_chat(response.data.response);
-            idlive_ripulito = response.data.response;
-            $('#avvio').hide();
-            $('#loader').show();
-          }
+        if (response.data.response==3){
+          $scope.titolo_live = response.data.title;
+          $scope.avvia_chat(response.data.idlive,response.data.status,response.data.live_chat_replay);
+          idvideo = response.data.idlive;
+        }
 
-          if (response.data.response==2){
-            $scope.openAlert('Il video non è disponibile oppure la chat non è pubblica. Ritenta! Chissà che non accada un miracolo :)');
-          }
+        if (response.data.response==2){
+          $scope.openAlert('Il video non è disponibile oppure la chat non è pubblica. Ritenta! Chissà che non accada un miracolo :)');
+          $('#avvio').show();
+        }
 
-          if (response.data.response==1){
-            $scope.openAlert('URL video errato! Accetta il formato https://www.youtube.com/watch?v=Adht6WnbdR8 oppure https://youtu.be/v=Adht6WnbdR8');
-          }
+        if (response.data.response==1){
+          $scope.openAlert('URL video errato! Accetta il formato https://www.youtube.com/watch?v=Adht6WnbdR8 oppure https://youtu.be/v=Adht6WnbdR8');
+          $('#avvio').show();
+        }
 
-          if (response.data.response==0){
-            $scope.openAlert('Non hai incollato l\'URL del video! Accetta il formato https://www.youtube.com/watch?v=Adht6WnbdR8 oppure https://youtu.be/v=Adht6WnbdR8');
-          }
+        if (response.data.response==0){
+          $scope.openAlert('Non hai incollato l\'URL del video! Accetta il formato https://www.youtube.com/watch?v=Adht6WnbdR8 oppure https://youtu.be/v=Adht6WnbdR8');
+          $('#avvio').show();
+        }
 
-        }).catch(function(error) {
-          console.error('Error fetching data:', error);
-        });
-      };
+      }).catch(function(error) {
+        console.error('Error fetching data:', error);
+      });
+  };
 
-  $scope.avvia_chat = function(idlive){
+  $scope.openlive = function(idlive){
+
+    $scope.last_id = '';
+    aggiorna_messaggi(idlive);
+    $scope.msg_loader = 'Salve professor Falken.';
+    $scope.msg_loader_sub = 'Mi collego al video live registrato.'; 
+    $('#avvio').hide();
+    $scope.closeModal('elencoliveModal');
+    $('#loader').show();
+    $scope.mostraytchat = false;      
+    $('#ytvideo').show();
+    onYouTubeIframeAPIReady(idlive); //Apriamo il video    
+
+  }
+
+  $scope.avvia_chat = function(idlive,stato){
+
+    $scope.msg_loader = 'Salve professor Falken.';
 
     // Preleviamo i messaggi dal db locale
-    avvia_aggiornamento(idlive);
+    if (stato=='live'){
 
-    //Apriamo il video
-    onYouTubeIframeAPIReady(idlive);
+      $scope.msg_loader_sub = 'Connessione in corso...';
+      $scope.mostraytchat = true;      
+      $('#ytchat').show();
+
+    } else { // se past
+
+      $scope.msg_loader_sub = 'Live registrata. Download messaggi.'; 
+      $scope.mostraytchat = false;      
+    }
+
+      $('#loader').show();
+
+      $http({
+        method: 'GET',
+        url: '/connessione_chat',
+        params: { idlive: idlive }
+      }).then(function() {
+  
+      })
+      .catch(function(error) {
+          console.error('Error fetching data:', error);
+      });
+
+    aggiorna_messaggi(idlive);
+    avvia_aggiornamento(idlive);     
+    $('#ytvideo').show();
+    onYouTubeIframeAPIReady(idlive); //Apriamo il video    
 
     // Imposta dinamicamente src dell'iframe
     var div = document.getElementById('ytchat');
     var iframe = div.getElementsByTagName('iframe')[0]; // Otteniamo il primo iframe all'interno del div
-    if (iframe) {
-      iframe.src = 'https://www.youtube.com/live_chat?v='+idlive+'&embed_domain=localhost&dark_theme=1';   
+    if (iframe) { 
+      iframe.src = 'https://www.youtube.com/live_chat?v='+idlive+'&embed_domain=localhost&dark_theme=1'; 
     }
-
-    $http({
-      method: 'GET',
-      url: '/connessione_chat',
-      params: { idlive: idlive }
-    }).then(function() {
-
-    })
-    .catch(function(error) {
-        console.error('Error fetching data:', error);
-    });
   }     
 
   function aggiorna_messaggi(idlive){
     $http({
       method: 'GET',
       url: '/aggiorna_messaggi',
-      params: { idlive: idlive }
+      params: { idlive: idlive, id: $scope.last_id }
     }).then(function(response) {            
-        if (response) {
+        if (response.data.length>0) {
             $('#loader').hide();
             $('#menu').show(); 
-            $('#ytvideo').show();
-            $('#ytchat').show();
-            $scope.chatlive = response.data;
-            $chatlivefiltered = response.data;
+            $scope.chatlive = $scope.chatlive.concat(response.data);
+            //$scope.chatlivefiltered = $scope.chatlivefiltered.concat(response.data);
+            $scope.last_id = response.data[response.data.length - 1].id;           
             $scope.updateSorting(); // Verifica ordinamento dei messaggi per data e da qui richiama filtro per autore, se selezionato
             updateUsers();
-          }   
+          } 
     })
     .catch(function(error) {
         console.error('Error fetching data:', error);
     }); 
-  }     
-  
+  } 
 
   function avvia_aggiornamento(idlive){
     $interval(function() {
       aggiorna_messaggi(idlive);
     }, 5000);
   }
- 
 
   $scope.openAlert = function(msg) {
     $scope.message = msg;
@@ -132,17 +168,72 @@ app.controller('MainController', function($scope, $http, $interval, $filter) {
     myModal.show();
   };
 
-  $scope.openModalUser = function() {
-    var myModal = new bootstrap.Modal(document.getElementById('userModal'), {
+  $scope.openModal = function(idmodal,idchannel,channel) {
+
+    if (idmodal=='canaliModal'){
+
+      $('#loader').show();
+      $scope.avviso = '';
+      $http({
+        method: 'GET',
+        url: '/elenco_canali'
+      }).then(function(response) {   
+
+          $('#loader').hide();
+          
+          if (response.data.length>0) {              
+              $scope.canali = response.data;
+            } else {
+              $scope.avviso = 'Nessun canale trovato.'
+            }
+      })
+      .catch(function(error) {
+          console.error('Error fetching data:', error);
+      }); 
+    }
+
+    if (idmodal=='elencoliveModal'){
+
+      $('#loader').show();
+      $scope.avviso = '';
+
+      $http({
+        method: 'GET',
+        url: '/elenco_live',
+        params: { idchannel: idchannel }
+      }).then(function(response) {   
+
+          if (idchannel){
+            $scope.titolo_modal_elencolive = channel + ' Live';
+          } else {
+            $scope.titolo_modal_elencolive = 'Live offline';
+          }
+         
+          if (response.data.length>0) {              
+            $scope.elencolive = response.data;
+          } else {
+            $scope.avviso = 'Nessuna live scaricata. Effettua una connessione o cerca tra i canali consigliati.'
+          }
+
+          $('#loader').hide();
+
+      })
+      .catch(function(error) {
+          console.error('Error fetching data:', error);
+      }); 
+    }
+    
+    var myModal = new bootstrap.Modal(document.getElementById(idmodal), {
       keyboard: true, 
       //backdrop: 'static', 
       focus: true 
     });
     myModal.show();
+    
   };
 
-  $scope.closeModalUser = function() {
-    $('#userModal').modal('hide'); // Chiude la modal
+  $scope.closeModal = function(idmodal) {
+    $('#'+idmodal).modal('hide'); // Chiude la modale
   };
 
   $scope.users = [];
@@ -171,7 +262,6 @@ app.controller('MainController', function($scope, $http, $interval, $filter) {
 
   // Funzione per aggiornare i messaggi visualizzati in base agli autori selezionati
   $scope.updateMessages = function() {
-    // Usa il filtro 'selectedUsers' per filtrare i messaggi in base agli autori selezionati
     $scope.chatlivefiltered = $filter('selectedUsers')($scope.chatlive, $scope.selectedUsers);
   };
 
@@ -295,7 +385,7 @@ app.controller('MainController', function($scope, $http, $interval, $filter) {
       var div = document.getElementById('ytchat');
       var iframe = div.getElementsByTagName('iframe')[0]; // Otteniamo il primo iframe all'interno del div
       if (iframe) {
-        iframe.src = 'https://www.youtube.com/live_chat?v='+idlive_ripulito+'&embed_domain=localhost&dark_theme=1';   
+        iframe.src = 'https://www.youtube.com/live_chat?v='+idvideo+'&embed_domain=localhost&dark_theme=1';   
       }
     }
   };
@@ -351,7 +441,7 @@ app.controller('MainController', function($scope, $http, $interval, $filter) {
 }
 
 $scope.openNewWindow = function(url) {
-  window.open('https://www.youtube.com/channel/'+url, '_blank');
+  window.open(url, '_blank');
 };
 
 });
