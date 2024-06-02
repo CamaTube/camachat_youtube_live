@@ -31,7 +31,7 @@ Anche i dati pubblici degli utenti in chat vengono salvati per altre opzioni att
 cursor.execute('INSERT INTO utenti (idchannel, utente, livello, stato, preferito, thumb) VALUES (?,?,?,?,?,?)', (idchannel, autore, 1, 1, 0, thumb))
 ```
 
-Per qualsiasi esigenza è possibile aprire e consultare il database locale con il software: https://github.com/sqlitebrowser/sqlitebrowser
+Per qualsiasi esigenza è possibile aprire e consultare il database locale con il software: https://sqlitebrowser.org
 
 ![Inserisci url video live Youtube](/images/camachat_sqlite.png "")
 
