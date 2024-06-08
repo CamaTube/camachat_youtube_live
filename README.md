@@ -13,8 +13,8 @@
 4. Ordinamento messaggi per data e ora crescente o decrescente.
 5. Conteggio messaggi in chat.
 6. Data e ora dei messaggi (la puoi mostrare o nascondere).
-7. Video Youtube (lo puoi spostare, ridimensionare, mostrare o nascondere).
-8. Chat Youtube per chattare (la puoi mostrare o nascondere).
+7. Video Youtube (si può spostare, ridimensionare, nascondere).
+8. Chat Youtube per chattare (si può nascondere).
 9. Le immagini degli utenti sono cliccabili: puoi visionare il loro canale.
 10. Puoi seguire più live e scrivere in più chat.
 
