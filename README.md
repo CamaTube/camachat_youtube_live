@@ -5,6 +5,8 @@
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/25634VCkR9g/0.jpg)](https://www.youtube.com/watch?v=25634VCkR9g)
 
+Guarda il video tutorial su CamaTube
+
 
 ## Funzioni principali
 1. Ingrandimento del testo della chat.
@@ -83,4 +85,7 @@ Thanks to https://github.com/xenova/chat-downloader
 
 ## Prossimi aggiornamenti
 È stato divertente realizzare questa prima versione di CamaChat e ho altre idee su come potenziarla. Spero presto di poterle condividere sul mio canale YouTube. Ti invito a seguirmi per essere avvisato sulle novità. Se anche tu vuoi contribuire a migliorarla, scrivimi a info@camatube.com o modifica il codice a tuo piacimento e mostrami il risultato. :)
+
+Guarda la live test di CamaChat
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/b6bBBcC7rY4/0.jpg)](https://www.youtube.com/watch?v=b6bBBcC7rY4)
         
